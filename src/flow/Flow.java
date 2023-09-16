@@ -15,17 +15,18 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author Ana Reyes
  */
 public class Flow extends javax.swing.JFrame {
-
-    public String tipo;
+    
+    public String ob;
     public String nombre;
 
     public Flow() {
         initComponents();
-        DefaultListModel<String> model = new DefaultListModel<>();
-        lista.setModel(model);
+        this.setLocationRelativeTo(null);
+        DefaultListModel<String> mp = new DefaultListModel<>();
+        lista.setModel(mp);
     }
 
-    MP3Player mp3player = new MP3Player();
+    MP3Player reproductor = new MP3Player();
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -45,6 +46,7 @@ public class Flow extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 204, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        lista.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         lista.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -52,9 +54,9 @@ public class Flow extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(lista);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 320, 210));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 320, 210));
 
-        btnAgregar.setBackground(new java.awt.Color(51, 51, 51));
+        btnAgregar.setBackground(new java.awt.Color(255, 102, 102));
         btnAgregar.setFont(new java.awt.Font("Eras Demi ITC", 1, 18)); // NOI18N
         btnAgregar.setText("ADD");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -64,36 +66,34 @@ public class Flow extends javax.swing.JFrame {
         });
         jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 460, 88, 46));
 
-        btnPlay.setIcon(new javax.swing.ImageIcon("C:\\Users\\Dell-Ins15-5510(i7)2\\Desktop\\btnplay.png")); // NOI18N
-        btnPlay.setText("jButton1");
+        btnPlay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iamgenes/playy.png"))); // NOI18N
         btnPlay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPlayActionPerformed(evt);
             }
         });
-        jPanel1.add(btnPlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 320, 90, 80));
+        jPanel1.add(btnPlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 320, 80, 84));
 
-        btnPause.setText("jButton2");
+        btnPause.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iamgenes/btnPausa.png"))); // NOI18N
         btnPause.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPauseActionPerformed(evt);
             }
         });
-        jPanel1.add(btnPause, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, 80, 80));
+        jPanel1.add(btnPause, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 80, 80));
 
-        btnStop.setIcon(new javax.swing.ImageIcon("C:\\Users\\Dell-Ins15-5510(i7)2\\Downloads\\btnStop.png")); // NOI18N
-        btnStop.setText("jButton3");
+        btnStop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iamgenes/detener.png"))); // NOI18N
         btnStop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnStopActionPerformed(evt);
             }
         });
-        jPanel1.add(btnStop, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 310, 80, 80));
+        jPanel1.add(btnStop, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 320, 83, 84));
 
         jLabel1.setFont(new java.awt.Font("Eras Demi ITC", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Reproductor MP3");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -112,12 +112,11 @@ public class Flow extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         JFileChooser fileChooser = new JFileChooser();
-        if (tipo == null) {
-        // Puedes asignar un valor por defecto o manejar este caso según tu lógica.
-        tipo = "ValorPorDefecto";
+        if (ob == null) {
+        ob = "x";
     }
     
-        if (tipo.equals("Administrador")) {
+        if (ob.equals("Administrador")) {
             fileChooser.setCurrentDirectory(new File("Z"));
         } else {
             fileChooser.setCurrentDirectory(new File("Z/" + nombre));
@@ -130,15 +129,15 @@ public class Flow extends javax.swing.JFrame {
 
         if (result == JFileChooser.APPROVE_OPTION) {
             File[] files = fileChooser.getSelectedFiles();
-            if (mp3player == null) {
-            mp3player = new MP3Player();
+            if (reproductor == null) {
+            reproductor = new MP3Player();
         }
             
             for (File file : files) {
-                mp3player.addToPlayList(file);
+                reproductor.addToPlayList(file);
 
-                DefaultListModel<String> model = (DefaultListModel<String>) lista.getModel();
-                model.addElement(file.getName());
+                DefaultListModel<String> mp = (DefaultListModel<String>) lista.getModel();
+                mp.addElement(file.getName());
             }
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
@@ -147,21 +146,24 @@ public class Flow extends javax.swing.JFrame {
          int selectedIndex = lista.getSelectedIndex();
         if (selectedIndex != -1) {
             if (selectedIndex < currentIndex) {
-                mp3player.skipBackward();
+                reproductor.skipBackward();
             } else {
-                mp3player.skipForward();
+                reproductor.skipForward();
             }
-            mp3player.play();
+            reproductor.play();
             currentIndex = selectedIndex;
         }
     }//GEN-LAST:event_btnPlayActionPerformed
 
     private void btnPauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPauseActionPerformed
-        mp3player.pause();
+         reproductor.pause();
     }//GEN-LAST:event_btnPauseActionPerformed
 
     private void btnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStopActionPerformed
-      mp3player.stop();  // TODO add your handling code here:
+      if (reproductor!=null)
+        {
+            reproductor.stop();
+        }
     }//GEN-LAST:event_btnStopActionPerformed
   
     
